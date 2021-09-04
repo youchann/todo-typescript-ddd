@@ -1,0 +1,37 @@
+version: "3"
+services:
+  app:
+    image: node:14
+    container_name: app
+    environment:
+      DB_USER: root
+      DB_PASSWORD: todo
+      DB_DATABASE: todo
+      DB_DRIVER: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      TZ: Asia/Tokyo
+    tty: true
+    # ホスト側のポート:コンテナのポート
+    ports:
+      - "3333:3000"
+    # ホスト側の./appをコンテナの/appにマウント
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: bash -c 'yarn && yarn run run-s migrate:up dev'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.6
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: todo
+      MYSQL_DATABASE: todo
+      TZ: Asia/Tokyo
+    ports:
+      - "3434:3306"
+    volumes:
+      # mysqlのデフォルト設定ファイルを上書き。:roでコンテナ側からは読み取り専用設定。
+      - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf:ro

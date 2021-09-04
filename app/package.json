@@ -1,0 +1,31 @@
+{
+  "name": "todo-clean-architecture",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "https://github.com/youchann/todo-typescript-clean-architecture",
+  "author": "https://github.com/youchann",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --watch 'src/**' --ext 'ts,js,json' --exec 'ts-node src/index.ts'",
+    "lint": "prettier --write .",
+    "migrate:create": "db-migrate create --config ./migrations/database.json",
+    "migrate:up": "db-migrate up --config ./migrations/database.json"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/mysql": "^2.15.19",
+    "@types/node": "^16.0.0",
+    "nodemon": "^2.0.10",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "db-migrate": "^0.11.12",
+    "db-migrate-mysql": "^2.1.2",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1"
+  }
+}
