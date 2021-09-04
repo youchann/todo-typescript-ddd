@@ -28,4 +28,8 @@ export class Todo {
     this.createdAt = payload.createdAt || new Date();
     this.updatedAt = payload.updatedAt || null;
   }
+
+  public toggleDone() {
+    this.isDone = new IsDone(!this.isDone.value);
+  }
 }
