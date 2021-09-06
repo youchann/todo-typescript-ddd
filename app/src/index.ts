@@ -1,4 +1,6 @@
 import express from 'express';
+import { createRouter } from './Application/web/router';
+import { MysqlConnection } from './Infrastructure/database';
 
 const app: express.Express = express();
 app.use(express.json());
@@ -12,9 +14,7 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
   next();
 });
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+app.use(createRouter(new MysqlConnection()));
 
 app.listen(3000, () => {
   console.log('Start on port 3000.');
