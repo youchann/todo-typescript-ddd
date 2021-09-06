@@ -1,11 +1,13 @@
 import { Todo } from '../../Entity/TodoEntity';
+import { IDbConnection } from '../../Infrastructure/database';
+import { TodoRepository } from '../../Repository/TodoRepository';
 import { ITodoRepository } from '../../Repository/types/ITodoRepository';
 
 export abstract class ITodoService {
   protected todoRepository: ITodoRepository;
 
-  constructor(todoRepository: ITodoRepository) {
-    this.todoRepository = todoRepository;
+  constructor(dbConnection: IDbConnection) {
+    this.todoRepository = new TodoRepository(dbConnection);
   }
 
   // abstract find(id: number): Promise<Todo>;
