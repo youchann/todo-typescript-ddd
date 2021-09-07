@@ -35,12 +35,26 @@ export class TodoController {
       name: new Name(name),
       memo: new Memo(memo),
       isDone: new IsDone(isDone),
-    })
+    });
     const result = await this.todoService.create(todo);
     return result.value;
   }
 
-  // async update(req: IControllerRequest, _res: IControllerResponse) {}
+  async update(req: express.Request, _res: express.Response) {
+    // TODO: validate
+    const { name, memo, isDone } = req.body;
+    const todo = new Todo({
+      name: new Name(name),
+      memo: new Memo(memo),
+      isDone: new IsDone(isDone),
+    });
+    const result = await this.todoService.update(todo);
+    return result.value;
+  }
 
-  // async delete(req: IControllerRequest, _res: IControllerResponse) {}
+  async delete(req: express.Request, _res: express.Response) {
+    const { id } = req.params;
+    const result = await this.todoService.delete(new Id(+id));
+    return result.value;
+  }
 }

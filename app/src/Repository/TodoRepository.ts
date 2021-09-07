@@ -47,11 +47,11 @@ export class TodoRepository extends ITodoRepository {
       'update todo set name = ?, memo = ?, is_done = ? where id = ?',
       [todo.name.value, todo.memo.value, this.getDoneValue(todo.isDone.value), todo.id.value]
     );
-    return todo.id.value;
+    return todo.id;
   }
 
-  async delete(id: number) {
-    await this.dbConnection.execute('delete from todo where id = ?', [id]);
+  async delete(id: Id) {
+    await this.dbConnection.execute('delete from todo where id = ?', [id.value]);
     return id;
   }
 }

@@ -21,10 +21,10 @@ export const createTodoRouter = (dbConnection: IDbConnection) => {
     res.send(result);
   });
 
-  // router.put('/:id', async (req: express.Request, res: express.Response) => {
-  //   const result = await todoController.update(req, res);
-  //   res.send(result);
-  // });
+  router.put('/:id', async (req: express.Request, res: express.Response) => {
+    const result = await todoController.update(req, res);
+    res.send(result);
+  });
 
   // router.delete('/:id', async (req: express.Request, res: express.Response) => {
   //   const result = await todoController.delete(req, res);

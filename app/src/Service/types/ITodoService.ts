@@ -14,6 +14,6 @@ export abstract class ITodoService {
   abstract find(id: Id): Promise<Todo>;
   abstract list(): Promise<Todo[]>;
   abstract create(todo: Todo): Promise<Id>;
-  // abstract update(todo: Todo): Promise<number>;
-  // abstract delete(id: number): Promise<number>;
+  abstract update(todo: Todo): Promise<Id>;
+  abstract delete(id: Id): Promise<Id>;
 }
