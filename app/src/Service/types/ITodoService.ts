@@ -12,7 +12,7 @@ export abstract class ITodoService {
 
   // abstract find(id: number): Promise<Todo>;
   abstract list(): Promise<Todo[]>;
-  // abstract create(todo: Todo): Promise<number>;
+  abstract create(todo: Todo): Promise<number>;
   // abstract update(todo: Todo): Promise<number>;
   // abstract delete(id: number): Promise<number>;
 }

@@ -1,3 +1,8 @@
+import express from 'express';
+import { Todo } from '../../../Entity/TodoEntity';
+import { IsDone } from '../../../Entity/TodoEntity/isDone';
+import { Memo } from '../../../Entity/TodoEntity/memo';
+import { Name } from '../../../Entity/TodoEntity/name';
 import { IDbConnection } from '../../../Infrastructure/database';
 import { TodoService } from '../../../Service/TodoService';
 import { ITodoService } from '../../../Service/types/ITodoService';
@@ -12,12 +17,22 @@ export class TodoController {
   }
   // async find(req: IControllerRequest, _res: IControllerResponse) {}
 
-  async list(_req: Express.Request, _res: Express.Request) {
+  async list(_req: express.Request, _res: express.Response) {
     const todos = await this.todoService.list();
     return todos.map((todo) => this.todoSerializer.serialize(todo));
   }
 
-  // async create(req: IControllerRequest, _res: IControllerResponse) {}
+  async create(req: express.Request, _res: express.Response) {
+    // TODO: validate
+    const { name, memo, isDone } = req.body;
+    const todo = new Todo({
+      name: new Name(name),
+      memo: new Memo(memo),
+      isDone: new IsDone(isDone),
+    })
+    await this.todoService.create(todo);
+    return this.todoSerializer.serialize(todo);
+  }
 
   // async update(req: IControllerRequest, _res: IControllerResponse) {}
 
