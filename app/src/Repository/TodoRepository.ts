@@ -26,6 +26,11 @@ export class TodoRepository extends ITodoRepository {
     return this.mapToEntity(result[0]);
   }
 
+  async findByName(name: Name) {
+    const result = await this.dbConnection.execute('select * from todo where name = ?', [name.value]);
+    return result.length ? this.mapToEntity(result[0]) : null;
+  }
+
   async list() {
     const result = await this.dbConnection.execute<any[]>('select * from todo');
     return result.map((r) => this.mapToEntity(r));

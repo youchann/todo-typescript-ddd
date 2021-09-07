@@ -14,6 +14,9 @@ export class TodoService extends ITodoService {
   }
 
   async create(todo: Todo) {
+    if (this.todoDomain.exists(todo)) {
+      throw new Error('Todo already exists');
+    }
     const result = await this.todoRepository.create(todo);
     return result;
   }
