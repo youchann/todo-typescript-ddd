@@ -1,6 +1,7 @@
-# todo-typescript-clean-architecture
+# todo-typescript-ddd
 
-Todo app with clean architecture
+Todo app with DDD.
+I referred to [this book](https://www.amazon.co.jp/dp/479815072X).
 
 # Local Development
 
@@ -22,4 +23,4 @@ Get todos.
 curl -s -X GET http://localhost:3333/todo/
 ```
 
-Routing is [here](https://github.com/youchann/todo-typescript-clean-architecture/blob/master/app/src/infrastructure/router/index.ts).	
+Routing is [here](https://github.com/youchann/todo-typescript-ddd/blob/main/app/src/Application/web/router/index.ts).	
