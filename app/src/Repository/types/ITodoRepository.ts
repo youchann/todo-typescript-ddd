@@ -1,4 +1,5 @@
 import { Todo } from '../../Entity/TodoEntity';
+import { Id } from '../../Entity/TodoEntity/id';
 import { IDbConnection } from '../../Infrastructure/database';
 
 export abstract class ITodoRepository {
@@ -8,9 +9,9 @@ export abstract class ITodoRepository {
     this.dbConnection = dbConnection;
   }
 
-  abstract find(id: number): Promise<Todo>;
+  abstract find(id: Id): Promise<Todo>;
   abstract list(): Promise<Todo[]>;
-  abstract create(todo: Todo): Promise<number>;
+  abstract create(todo: Todo): Promise<Id>;
   abstract update(todo: Todo): Promise<number>;
   abstract delete(id: number): Promise<number>;
 }

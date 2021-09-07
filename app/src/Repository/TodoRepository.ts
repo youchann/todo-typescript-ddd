@@ -21,8 +21,8 @@ export class TodoRepository extends ITodoRepository {
     return isDone ? 1 : 0;
   }
 
-  async find(id: number) {
-    const result = await this.dbConnection.execute('select * from todo where id = ?', [id]);
+  async find(id: Id) {
+    const result = await this.dbConnection.execute('select * from todo where id = ?', [id.value]);
     return this.mapToEntity(result[0]);
   }
 
@@ -36,7 +36,7 @@ export class TodoRepository extends ITodoRepository {
       'insert into todo(name,memo,is_done) values (?,?,?)',
       [todo.name.value, todo.memo.value, this.getDoneValue(todo.isDone.value)]
     );
-    return result.insertId;
+    return new Id(result.insertId);
   }
 
   async update(todo: Todo) {

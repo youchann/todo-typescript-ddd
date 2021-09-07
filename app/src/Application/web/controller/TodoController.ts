@@ -1,5 +1,6 @@
 import express from 'express';
 import { Todo } from '../../../Entity/TodoEntity';
+import { Id } from '../../../Entity/TodoEntity/id';
 import { IsDone } from '../../../Entity/TodoEntity/isDone';
 import { Memo } from '../../../Entity/TodoEntity/memo';
 import { Name } from '../../../Entity/TodoEntity/name';
@@ -15,7 +16,12 @@ export class TodoController {
     this.todoSerializer = new TodoSerializer();
     this.todoService = new TodoService(dbConnection);
   }
-  // async find(req: IControllerRequest, _res: IControllerResponse) {}
+
+  async find(req: express.Request, _res: express.Response) {
+    const { id } = req.params;
+    const todo = await this.todoService.find(new Id(+id));
+    return this.todoSerializer.serialize(todo);
+  }
 
   async list(_req: express.Request, _res: express.Response) {
     const todos = await this.todoService.list();
@@ -30,8 +36,8 @@ export class TodoController {
       memo: new Memo(memo),
       isDone: new IsDone(isDone),
     })
-    await this.todoService.create(todo);
-    return this.todoSerializer.serialize(todo);
+    const result = await this.todoService.create(todo);
+    return result.value;
   }
 
   // async update(req: IControllerRequest, _res: IControllerResponse) {}
